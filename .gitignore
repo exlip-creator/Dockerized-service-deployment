@@ -1,5 +1,5 @@
-#Секретные данные и настройки
+# Secret environment variables
 .env
 
-# Зависимости (тяжелые библиотеки Node.js)
+# Required for Node.js projects
 node_modules/

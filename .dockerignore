@@ -1,0 +1,14 @@
+# Secret environment variables
+.env
+
+# Required for Node.js projects
+node_modules/
+npm-debug.log
+
+# Git system
+.git
+.gitignore
+
+# Docker & Docs
+.dockerignore
+README.md
