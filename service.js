@@ -2,8 +2,16 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
+app.use(express.static("public"));
+
 app.get("/", (req, res) => {
-    res.send("Hello, dear guest!");
+    const htmlResponse = `
+        <div style="text-align: center; font-family: sans-serif; margin-top: 50px;">
+            <h1>Welcome to the Cat Service!</h1>
+        </div>
+    `;
+    
+    res.send(htmlResponse);
 });
 
 app.get("/secret", (req, res) => {
@@ -17,14 +25,18 @@ app.get("/secret", (req, res) => {
     const username = auth[0];
     const password = auth[1];
 
-    console.log("Введено пользователем:", { username, password }); 
-    console.log("Ожидается из .env:", { 
-        envUser: process.env.ADMIN_NAME, 
-        envPass: process.env.PASSWORD 
-    });
-
     if (username === process.env.ADMIN_NAME && password === process.env.PASSWORD){
-        res.send(process.env.SECRET_MESSAGE);
+        const htmlResponse = `
+            <div style="text-align: center; font-family: sans-serif; margin-top: 50px;">
+                <h1>${process.env.SECRET_MESSAGE}</h1>
+                <br>
+                <img src="cat_milk.jpeg" 
+                    alt="Секретный кот" 
+                    style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+            </div>        
+        `;
+
+        res.send(htmlResponse);
     } else {
         res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
         res.status(401).send("Unauthorized: Invalid credentials");
